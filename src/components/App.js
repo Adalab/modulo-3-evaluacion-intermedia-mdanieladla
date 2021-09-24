@@ -10,20 +10,24 @@ function App() {
   const [select, setSelect] = useState('');
 
   //Pintar en el HTML las tarjetas
-  const htmlClubsList = clubs.map((oneClub, index) => (
-    <li key={index} className='list__container--li'>
-      <h3>
-        #{index} {oneClub.name}
-      </h3>
-      <p>
-        Abierto entre semana : {oneClub.openOnWeekdays === true ? 'Si' : 'No'}
-      </p>
-      <p>
-        Abierto los fines de semana :
-        {oneClub.openOnWeekend === true ? 'Si' : 'No'}
-      </p>
-    </li>
-  ));
+  //filtrar para que el select funcione
+  const htmlClubsList = clubs
+    // .filter((club) =>
+    // club.openOnWeekdays)
+    .map((oneClub, index) => (
+      <li key={index} className='list__container--li'>
+        <h3>
+          #{index} {oneClub.name}
+        </h3>
+        <p>
+          Abierto entre semana : {oneClub.openOnWeekdays === true ? 'Si' : 'No'}
+        </p>
+        <p>
+          Abierto los fines de semana :
+          {oneClub.openOnWeekend === true ? 'Si' : 'No'}
+        </p>
+      </li>
+    ));
 
   //Coger el valor de los inputs
   const handleChangeClubName = (ev) => {
