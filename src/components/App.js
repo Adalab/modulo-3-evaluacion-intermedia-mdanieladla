@@ -8,10 +8,6 @@ function App() {
   const [weekDayOpen, setWeekDayOpen] = useState('');
   const [weekendOpen, setWeekendOpen] = useState('');
   const [select, setSelect] = useState('');
-  // const openWeekDays = 'Abierto entre semana';
-  // const notOpenWeekDays = 'Abierto entre semana: No';
-  // const openWeekends = 'Abierto el fin de semana: Sí';
-  // const notOpenWeekends = 'Abierto el fin de semana: No';
 
   //Pintar en el HTML las tarjetas
   const htmlClubsList = clubs.map((oneClub, index) => (
