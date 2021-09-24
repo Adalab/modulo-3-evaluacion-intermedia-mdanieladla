@@ -7,6 +7,7 @@ function App() {
   const [newClubName, setNewClub] = useState('');
   const [weekDayOpen, setWeekDayOpen] = useState('');
   const [weekendOpen, setWeekendOpen] = useState('');
+  const [select, setSelect] = useState('');
   // const openWeekDays = 'Abierto entre semana';
   // const notOpenWeekDays = 'Abierto entre semana: No';
   // const openWeekends = 'Abierto el fin de semana: Sí';
@@ -19,7 +20,7 @@ function App() {
         #{index} {oneClub.name}
       </h3>
       <p>
-        Abierto entre semana : {oneClub.openOnWeekDays === true ? 'Si' : 'No'}
+        Abierto entre semana : {oneClub.openOnWeekdays === true ? 'Si' : 'No'}
       </p>
       <p>
         Abierto los fines de semana :
@@ -54,17 +55,30 @@ function App() {
     setClubs([...clubs, newClub]);
   };
 
+  //cambiar select
+  const handleSelectOption = (ev) => {
+    setSelect(ev.target.value);
+  };
+
   return (
     <div className='page'>
       <header className='header'>
         <h1 className='header--title'>Mis clubs</h1>
+        <form className='header--form'>
+          <label>Mostrar </label>
+          <select onChange={handleSelectOption}>
+            <option>Todos</option>
+            <option>Abierto entre semana</option>
+            <option>Abierto en fin de semana</option>
+          </select>
+        </form>
       </header>
       <section>
         <ul className='list__container'>{htmlClubsList}</ul>
       </section>
       <h4 className='title--newClub'>Añadir un nuevo club</h4>
       <form className='form'>
-        <label> Nombre del club </label>
+        <label className='form--title'> Nombre del club </label>
         <input
           type='text'
           className='form__input--name'

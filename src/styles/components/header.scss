@@ -1,6 +1,14 @@
 .header {
     font-size: 30px;
+    border-bottom: 1px solid lightgray;
+    padding: 5px;
     &--title{
         font-size: 30px;
+        padding-bottom: 5px;
+    }
+    &--form{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
     }
 }
