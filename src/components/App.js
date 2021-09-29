@@ -5,25 +5,34 @@ import { useState } from 'react';
 function App() {
   const [clubs, setClubs] = useState(clubsData);
   const [newClubName, setNewClub] = useState('');
-  const [weekDayOpen, setWeekDayOpen] = useState('');
-  const [weekendOpen, setWeekendOpen] = useState('');
-  const [select, setSelect] = useState('');
+  const [weekDayOpen, setWeekDayOpen] = useState(false);
+  const [weekendOpen, setWeekendOpen] = useState(false);
+  const [select, setSelect] = useState('all');
 
   //Pintar en el HTML las tarjetas
-  const htmlClubsList = clubs.map((oneClub, index) => (
-    <li key={index} className='list__container--li'>
-      <h3>
-        #{index} {oneClub.name}
-      </h3>
-      <p>
-        Abierto entre semana : {oneClub.openOnWeekdays === true ? 'Si' : 'No'}
-      </p>
-      <p>
-        Abierto los fines de semana :
-        {oneClub.openOnWeekend === true ? 'Si' : 'No'}
-      </p>
-    </li>
-  ));
+  const htmlClubsList = clubs
+    .filter((club) => {
+      if (select === 'weekdays') {
+        return club.openOnWeekDays === true;
+      } else if (select === 'weekends') {
+        return club.openOnWeekend === true;
+      }
+      return true;
+    })
+    .map((oneClub, index) => (
+      <li key={index} className='list__container--li'>
+        <h3>
+          #{index} {oneClub.name}
+        </h3>
+        <p>
+          Abierto entre semana : {oneClub.openOnWeekdays === true ? 'Si' : 'No'}
+        </p>
+        <p>
+          Abierto los fines de semana :
+          {oneClub.openOnWeekend === true ? 'Si' : 'No'}
+        </p>
+      </li>
+    ));
 
   //Coger el valor de los inputs
   const handleChangeClubName = (ev) => {
@@ -63,9 +72,9 @@ function App() {
         <form className='header--form'>
           <label>Mostrar </label>
           <select onChange={handleSelectOption}>
-            <option>Todos</option>
-            <option>Abierto entre semana</option>
-            <option>Abierto en fin de semana</option>
+            <option value='all'>Todos</option>
+            <option value='weekdays'>Abierto entre semana</option>
+            <option value='weekends'>Abierto en fin de semana</option>
           </select>
         </form>
       </header>
@@ -78,18 +87,21 @@ function App() {
         <input
           type='text'
           className='form__input--name'
+          value={newClubName}
           onChange={handleChangeClubName}
         />
         <label>¿Abre entre semana?</label>
         <input
           type='checkbox'
           className='form__input--check'
+          value={checked}
           onClick={handleChangeOpenDays}
         />
         <label>¿Abre los fines de semana?</label>
         <input
           type='checkbox'
           className='form__input--check'
+          value={checked}
           onClick={handleChangeWeekend}
         />
         <input
