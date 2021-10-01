@@ -4,18 +4,17 @@ import { useState } from 'react';
 
 function App() {
   const [clubs, setClubs] = useState(clubsData);
-  const [newClubName, setNewClub] = useState('');
+  const [newClubName, setNewClubName] = useState('');
   const [weekDayOpen, setWeekDayOpen] = useState(false);
   const [weekendOpen, setWeekendOpen] = useState(false);
   const [select, setSelect] = useState('all');
-  const [selectedRadio, setSelectedRadio] = useState(false);
 
   //Pintar en el HTML las tarjetas
   const htmlClubsList = clubs
     .filter((club) => {
-      if (select === 'weekdays') {
-        return club.openOnWeekDays === true;
-      } else if (select === 'weekends') {
+      if (select === 'openOnWeekdays') {
+        return club.openOnWeekdays === true;
+      } else if (select === 'openOnweekend') {
         return club.openOnWeekend === true;
       }
       return true;
@@ -37,15 +36,20 @@ function App() {
 
   //Coger el valor de los inputs
   const handleChangeClubName = (ev) => {
-    setNewClub(ev.currentTarget.value);
+    setNewClubName(ev.target.value);
   };
 
   const handleChangeOpenDays = (ev) => {
-    setWeekDayOpen(ev.currentTarget.checked);
+    setWeekDayOpen(ev.target.checked);
   };
 
   const handleChangeWeekend = (ev) => {
-    setWeekendOpen(ev.currentTarget.checked);
+    setWeekendOpen(ev.target.checked);
+  };
+
+  //cambiar select
+  const handleSelectOption = (ev) => {
+    setSelect(ev.target.value);
   };
 
   //Añadir nuevo club al hacer click y que no se refresque la página.
@@ -54,21 +58,11 @@ function App() {
 
     const newClub = {
       name: newClubName,
-      openOnWeekDays: weekDayOpen,
+      openOnWeekdays: weekDayOpen,
       openOnWeekend: weekendOpen,
     };
 
     setClubs([...clubs, newClub]);
-  };
-
-  //cambiar select
-  const handleSelectOption = (ev) => {
-    setSelect(ev.target.value);
-  };
-
-  //
-  const handleSelectRadio = (ev) => {
-    setSelectedRadio(ev.target.checked);
   };
 
   return (
@@ -77,10 +71,10 @@ function App() {
         <h1 className='header--title'>Mis clubs</h1>
         <form className='header--form'>
           <label>Mostrar </label>
-          <select onChange={handleSelectOption}>
+          <select value={select} onChange={handleSelectOption}>
             <option value='all'>Todos</option>
-            <option value='weekdays'>Abierto entre semana</option>
-            <option value='weekends'>Abierto en fin de semana</option>
+            <option value='openOnWeekdays'>Abierto entre semana</option>
+            <option value='openOnweekend'>Abierto en fin de semana</option>
           </select>
         </form>
       </header>
@@ -93,6 +87,7 @@ function App() {
         <input
           type='text'
           className='form__input--name'
+          name='name'
           value={newClubName}
           onChange={handleChangeClubName}
         />
@@ -100,17 +95,15 @@ function App() {
         <input
           type='checkbox'
           className='form__input--check'
-          checked={selectedRadio}
-          onClick={handleSelectRadio}
-          // onClick={handleChangeOpenDays}
+          checked={weekDayOpen}
+          onChange={handleChangeOpenDays}
         />
         <label>¿Abre los fines de semana?</label>
         <input
           type='checkbox'
           className='form__input--check'
-          checked={selectedRadio}
-          onClick={handleSelectRadio}
-          // onClick={handleChangeWeekend}
+          checked={weekendOpen}
+          onChange={handleChangeWeekend}
         />
         <input
           type='submit'
