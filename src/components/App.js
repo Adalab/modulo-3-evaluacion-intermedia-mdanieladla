@@ -8,6 +8,7 @@ function App() {
   const [weekDayOpen, setWeekDayOpen] = useState(false);
   const [weekendOpen, setWeekendOpen] = useState(false);
   const [select, setSelect] = useState('all');
+  const [selectedRadio, setSelectedRadio] = useState(false);
 
   //Pintar en el HTML las tarjetas
   const htmlClubsList = clubs
@@ -65,6 +66,11 @@ function App() {
     setSelect(ev.target.value);
   };
 
+  //
+  const handleSelectRadio = (ev) => {
+    setSelectedRadio(ev.target.checked);
+  };
+
   return (
     <div className='page'>
       <header className='header'>
@@ -94,15 +100,17 @@ function App() {
         <input
           type='checkbox'
           className='form__input--check'
-          value={checked}
-          onClick={handleChangeOpenDays}
+          checked={selectedRadio}
+          onClick={handleSelectRadio}
+          // onClick={handleChangeOpenDays}
         />
         <label>¿Abre los fines de semana?</label>
         <input
           type='checkbox'
           className='form__input--check'
-          value={checked}
-          onClick={handleChangeWeekend}
+          checked={selectedRadio}
+          onClick={handleSelectRadio}
+          // onClick={handleChangeWeekend}
         />
         <input
           type='submit'
