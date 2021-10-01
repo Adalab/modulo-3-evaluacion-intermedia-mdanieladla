@@ -9,31 +9,6 @@ function App() {
   const [weekendOpen, setWeekendOpen] = useState(false);
   const [select, setSelect] = useState('all');
 
-  //Pintar en el HTML las tarjetas
-  const htmlClubsList = clubs
-    .filter((club) => {
-      if (select === 'openOnWeekdays') {
-        return club.openOnWeekdays === true;
-      } else if (select === 'openOnweekend') {
-        return club.openOnWeekend === true;
-      }
-      return true;
-    })
-    .map((oneClub, index) => (
-      <li key={index} className='list__container--li'>
-        <h3>
-          #{index} {oneClub.name}
-        </h3>
-        <p>
-          Abierto entre semana : {oneClub.openOnWeekdays === true ? 'Si' : 'No'}
-        </p>
-        <p>
-          Abierto los fines de semana :
-          {oneClub.openOnWeekend === true ? 'Si' : 'No'}
-        </p>
-      </li>
-    ));
-
   //Coger el valor de los inputs
   const handleChangeClubName = (ev) => {
     setNewClubName(ev.target.value);
@@ -64,6 +39,41 @@ function App() {
 
     setClubs([...clubs, newClub]);
   };
+
+  //Borrar clubs
+  const handleDelete = (ev) => {
+    const id = ev.currentTarget.id;
+    clubs.splice(id, 1);
+    setClubs([...clubs]);
+  };
+
+  //Pintar en el HTML las tarjetas
+  const htmlClubsList = clubs
+    .filter((club) => {
+      if (select === 'openOnWeekdays') {
+        return club.openOnWeekdays === true;
+      } else if (select === 'openOnweekend') {
+        return club.openOnWeekend === true;
+      }
+      return true;
+    })
+    .map((oneClub, index) => (
+      <li key={index} className='list__container--li'>
+        <h3>
+          #{index} {oneClub.name}
+        </h3>
+        <p>
+          Abierto entre semana : {oneClub.openOnWeekdays === true ? 'Si' : 'No'}
+        </p>
+        <p>
+          Abierto los fines de semana :
+          {oneClub.openOnWeekend === true ? 'Si' : 'No'}
+        </p>
+        <button className='delete-btn' onClick={handleDelete}>
+          X
+        </button>
+      </li>
+    ));
 
   return (
     <div className='page'>
