@@ -13,27 +13,38 @@
 }
 
 .title--newClub {
+    text-align: center;
     border-bottom: 1px solid lightsteelblue;
     padding-bottom: 5px;
 }
 
 .form {
+    border: 1px solid lightsteelblue;
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
     &--title{
         padding: 5px;
     }
     &__input--name {
         margin-top: 5px;
-        margin-bottom: 5px;
-        width: 150px;
+        margin-bottom: 10px;
+        width: 120px;
+        border-radius: 10px;
+        border: 2px solid lightsteelblue;
     }
     &__input--check{
-        margin-left: 80px;
-        margin-bottom: 20px;
+        margin: 5px 0 20px 10px;
+      
     }
     &__input--btn {
         width: 200px;
+        border-radius: 10px;
+        border: 2px solid lightsteelblue;
+        margin-bottom: 10px;
     }
 }
 

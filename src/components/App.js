@@ -80,8 +80,12 @@ function App() {
       <header className='header'>
         <h1 className='header--title'>Mis clubs</h1>
         <form className='header--form'>
-          <label>Mostrar </label>
-          <select value={select} onChange={handleSelectOption}>
+          <label className='header--form--label'>Mostrar </label>
+          <select
+            className='header--form--select'
+            value={select}
+            onChange={handleSelectOption}
+          >
             <option value='all'>Todos</option>
             <option value='openOnWeekdays'>Abierto entre semana</option>
             <option value='openOnweekend'>Abierto en fin de semana</option>
